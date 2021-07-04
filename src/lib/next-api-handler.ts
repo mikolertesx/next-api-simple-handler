@@ -20,7 +20,7 @@ export const apiHandler = async (
   }
 
   const missingBodyKeys: string[] = [];
-  for (let key in config.requiredBody) {
+  for (let key of config.requiredBody) {
     if (!req.body.hasOwnProperty(key)) {
       missingBodyKeys.push(key);
     }
