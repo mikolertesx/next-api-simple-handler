@@ -7,7 +7,7 @@ export const apiHandler = async (
   config: apiConfiguration,
   handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
 ) => {
-  if (config.methods) {
+  if (config.methods !== undefined) {
     const isMethodPermitted = config.methods.findIndex((method) =>
       method === req.method
     ) !== -1;
@@ -22,7 +22,7 @@ export const apiHandler = async (
     }
   }
 
-  if (config.requiredBody) {
+  if (config.requiredBody !== undefined) {
     const missingBodyKeys: string[] = [];
     for (const key of config.requiredBody) {
       if (!req.body.hasOwnProperty(key)) {
@@ -38,7 +38,7 @@ export const apiHandler = async (
     }
   }
 
-  if (config.contentType) {
+  if (config.contentType !== undefined) {
     if (config.contentType !== req.headers["content-type"]) {
       res.status(500).json({
         error: `Expected ${config.contentType}, not ${
