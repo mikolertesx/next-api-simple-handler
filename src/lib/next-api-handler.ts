@@ -30,6 +30,7 @@ export const apiHandler = async (
     res.status(500).json({
       error: `Missing required body keys: ${missingBodyKeys.join(", ")}`,
     });
+    return;
   }
 
   await handler(req, res);
