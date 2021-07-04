@@ -7,30 +7,47 @@ export const apiHandler = async (
   config: apiConfiguration,
   handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
 ) => {
-  const isMethodPermitted =
-    config.methods.findIndex((method) => method === req.method) !== -1;
+  if (config.methods) {
+    const isMethodPermitted = config.methods.findIndex((method) =>
+      method === req.method
+    ) !== -1;
 
-  if (!isMethodPermitted) {
-    res.status(500).json({
-      error: `Only methods ${
-        config.methods.join(", ")
-      } are permitted on this route.`,
-    });
-    return;
-  }
-
-  const missingBodyKeys: string[] = [];
-  for (const key of config.requiredBody) {
-    if (!req.body.hasOwnProperty(key)) {
-      missingBodyKeys.push(key);
+    if (!isMethodPermitted) {
+      res.status(500).json({
+        error: `Only methods ${
+          config.methods.join(", ")
+        } are permitted on this route.`,
+      });
+      return;
     }
   }
 
-  if (missingBodyKeys.length !== 0) {
-    res.status(500).json({
-      error: `Missing required body keys: ${missingBodyKeys.join(", ")}`,
-    });
-    return;
+  if (config.requiredBody) {
+    const missingBodyKeys: string[] = [];
+    for (const key of config.requiredBody) {
+      if (!req.body.hasOwnProperty(key)) {
+        missingBodyKeys.push(key);
+      }
+    }
+
+    if (missingBodyKeys.length !== 0) {
+      res.status(500).json({
+        error: `Missing required body keys: ${missingBodyKeys.join(", ")}`,
+      });
+      return;
+    }
+  }
+
+  if (config.contentType) {
+    if (config.contentType !== req.headers["content-type"]) {
+      res.status(500).json({
+        error: `Expected ${config.contentType}, not ${
+          req.headers["content-type"]
+        }`,
+      });
+
+      return;
+    }
   }
 
   await handler(req, res);
