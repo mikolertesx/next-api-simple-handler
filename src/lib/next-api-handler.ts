@@ -7,7 +7,19 @@ export const apiHandler = async (
   config: apiConfiguration,
   handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
 ) => {
-  if (config.methods !== undefined) {
+  if (config.contentType) {
+    if (config.contentType !== req.headers["content-type"]) {
+      res.status(500).json({
+        error: `Expected ${config.contentType}, not ${
+          req.headers["content-type"]
+        }`,
+      });
+
+      return;
+    }
+  }
+
+  if (config.methods) {
     const isMethodPermitted = config.methods.findIndex((method) =>
       method === req.method
     ) !== -1;
@@ -22,7 +34,7 @@ export const apiHandler = async (
     }
   }
 
-  if (config.requiredBody !== undefined) {
+  if (config.requiredBody) {
     const missingBodyKeys: string[] = [];
     for (const key of config.requiredBody) {
       if (!req.body.hasOwnProperty(key)) {
@@ -34,18 +46,6 @@ export const apiHandler = async (
       res.status(500).json({
         error: `Missing required body keys: ${missingBodyKeys.join(", ")}`,
       });
-      return;
-    }
-  }
-
-  if (config.contentType !== undefined) {
-    if (config.contentType !== req.headers["content-type"]) {
-      res.status(500).json({
-        error: `Expected ${config.contentType}, not ${
-          req.headers["content-type"]
-        }`,
-      });
-
       return;
     }
   }
