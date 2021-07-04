@@ -19,6 +19,19 @@ export const apiHandler = async (
     return;
   }
 
+  const missingBodyKeys: string[] = [];
+  for (let key in config.requiredBody) {
+    if (!req.body.hasOwnProperty(key)) {
+      missingBodyKeys.push(key);
+    }
+  }
+
+  if (missingBodyKeys.length !== 0) {
+    res.status(500).json({
+      error: `Missing required body keys: ${missingBodyKeys.join(", ")}`,
+    });
+  }
+
   await handler(req, res);
   return;
 };
