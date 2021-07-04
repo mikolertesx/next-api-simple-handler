@@ -10,9 +10,9 @@ export const apiHandler = async (
   if (config.contentType) {
     if (config.contentType !== req.headers["content-type"]) {
       res.status(500).json({
-        error: `Expected ${config.contentType}, not ${
+        error: `Expected '${config.contentType}' content-type, not '${
           req.headers["content-type"]
-        }`,
+        }' content-type`,
       });
 
       return;
@@ -45,6 +45,7 @@ export const apiHandler = async (
     if (missingBodyKeys.length !== 0) {
       res.status(500).json({
         error: `Missing required body keys: ${missingBodyKeys.join(", ")}`,
+        schema: config.schema || "",
       });
       return;
     }

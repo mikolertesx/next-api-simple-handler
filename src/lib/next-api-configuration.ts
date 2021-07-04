@@ -5,6 +5,7 @@ interface NextApiConfiguration {
   methods?: Methods[];
   requiredBody?: string[];
   contentType?: ContentType;
+  schema?: object;
 }
 
 export default NextApiConfiguration;
