@@ -1,0 +1,24 @@
+{
+	"name": "next-api-simple-handler",
+	"version": "0.1.0",
+	"description": "",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"/dist"
+	],
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"next": "^11.0.1",
+		"typescript": "^4.3.5"
+	},
+	"dependencies": {
+		"react": "^17.0.2",
+		"save-dev": "^0.0.1-security"
+	}
+}
