@@ -142,3 +142,69 @@ export async function handler(req, res) {
 	})
 }
 ```
+
+### Customizable error message
+
+You can also define custom error messages and error codes, *errorMessages* and *errorCodes* are objects with the following keys:
+- "wrong-content-type"
+- "wrong-method"
+- "missing-body-key"
+
+You can define inside the *configuration* object, any of this values and they will override the defaults.
+
+Here is the declaration of the default configuration:
+```js
+const defaultConfig: apiConfiguration = {
+  errorCodes: {
+    "missing-body-key": 422,
+    "wrong-content-type": 422,
+    "wrong-method": 422,
+  },
+  errorMessages: {
+    "wrong-content-type": (expectedContentType, receivedContentType) =>
+      `Expected '${expectedContentType}' content-type, not '${receivedContentType}' content-type`,
+    "missing-body-key": (missingBodyKeys: string[]) =>
+      `Missing required body keys: ${missingBodyKeys.join(", ")}`,
+    "wrong-method": (allowedMethods: string[]) =>
+      `Only methods ${allowedMethods.join(", ")} are permitted on this route.`,
+  },
+};
+```
+
+And here is an example of what I'd do in a login, register situation.
+
+```js
+apiHandler(
+    req,
+    res,
+    {
+      methods: ['POST'],
+      contentType: 'application/json',
+      requiredBody: ['username', 'password'],
+      errorMessages: {
+        'missing-body-key': (missingKeys) =>
+          `A username, and a password are required to register an account. You are missing ${missingKeys.join(
+            ', '
+          )}`,
+        'wrong-content-type': (expectedContentType, receivedContentType) =>
+          `Only ${expectedContentType} is allowed on this route; You sent ${receivedContentType}`,
+        'wrong-method': (allowedMethods) =>
+          `Only the methods ${allowedMethods.join(
+            ', '
+          )} can be done in this route.`,
+      },
+      schema: registerSchema,
+    }, (req, res) => {
+			return res.json("User was registered.");
+		})
+```
+
+The snippet above changes each of the errorMessages.
+
+## Mainteinance
+
+The library was made with Typescript, so every piece here is typed and will give you hints on whether or not you are missusing it.
+
+## Todo
+- Add testing
+- Create documentation with Sphinx

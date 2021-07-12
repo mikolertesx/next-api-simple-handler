@@ -1,4 +1,5 @@
-import apiConfiguration from "./next-api-configuration";
+import apiConfiguration from "./interfaces/next-api-configuration";
+import { defaultConfig } from "./defaults/defaultConfig";
 import { NextRequest } from "./interfaces/next-request";
 import { NextResponse } from "./interfaces/next-response";
 
@@ -10,10 +11,18 @@ export const apiHandler = async (
 ) => {
   if (config.contentType) {
     if (config.contentType !== req.headers["content-type"]) {
-      res.status(500).json({
-        error: `Expected '${config.contentType}' content-type, not '${
-          req.headers["content-type"]
-        }' content-type`,
+      res.status(
+        config.errorCodes?.["wrong-content-type"] ||
+          defaultConfig.errorCodes["wrong-content-type"],
+      ).json({
+        error: config.errorMessages?.["wrong-content-type"](
+          config.contentType,
+          req.headers["content-type"],
+        ) ||
+          defaultConfig.errorMessages["wrong-content-type"](
+            config.contentType,
+            req.headers["content-type"],
+          ),
       });
 
       return;
@@ -26,10 +35,12 @@ export const apiHandler = async (
     ) !== -1;
 
     if (!isMethodPermitted) {
-      res.status(500).json({
-        error: `Only methods ${
-          config.methods.join(", ")
-        } are permitted on this route.`,
+      res.status(
+        config.errorCodes?.["wrong-method"] ||
+          defaultConfig.errorCodes?.["wrong-method"],
+      ).json({
+        error: config.errorMessages?.["wrong-method"](config.methods) ||
+          defaultConfig.errorMessages?.["wrong-method"](config.methods),
       });
       return;
     }
@@ -44,9 +55,12 @@ export const apiHandler = async (
     }
 
     if (missingBodyKeys.length !== 0) {
-      res.status(500).json({
-        error: `Missing required body keys: ${missingBodyKeys.join(", ")}`,
-        schema: config.schema || "",
+      res.status(
+        config.errorCodes?.["missing-body-key"] ||
+          defaultConfig.errorCodes?.["missing-body-key"],
+      ).json({
+        error: config.errorMessages?.["missing-body-key"](missingBodyKeys) ||
+          defaultConfig.errorMessages["missing-body-key"](missingBodyKeys),
       });
       return;
     }
