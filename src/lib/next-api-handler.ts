@@ -1,11 +1,12 @@
 import apiConfiguration from "./next-api-configuration";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest } from "./interfaces/next-request";
+import { NextResponse } from "./interfaces/next-response";
 
 export const apiHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: NextRequest,
+  res: NextResponse,
   config: apiConfiguration,
-  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
+  handler: (req: NextRequest, res: NextResponse) => Promise<void>,
 ) => {
   if (config.contentType) {
     if (config.contentType !== req.headers["content-type"]) {

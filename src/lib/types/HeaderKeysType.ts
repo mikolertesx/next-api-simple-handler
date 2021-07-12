@@ -1,0 +1,1 @@
+export type HeaderKeys = "content-type" | string;

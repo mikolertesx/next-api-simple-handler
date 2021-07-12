@@ -1,4 +1,4 @@
-type Methods = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+import { Methods } from "./types/MethodType";
 type ContentType = "application/json" | string;
 
 interface NextApiConfiguration {

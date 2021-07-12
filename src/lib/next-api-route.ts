@@ -1,12 +1,11 @@
 import apiConfiguration from "./next-api-configuration";
+import { NextRequest } from "./interfaces/next-request";
+import { NextResponse } from "./interfaces/next-response";
 import { apiHandler } from "./next-api-handler";
-import type { NextApiRequest, NextApiResponse } from "next";
 
 export const apiRoute = async (
-  req: NextApiRequest,
-  res: NextApiResponse,
   config: apiConfiguration,
-  handler: (req: NextApiRequest, res: NextApiResponse) => Promise<void>,
+  handler: (req: NextRequest, res: NextResponse) => Promise<void>,
 ) => {
   return async (req, res) =>
     await apiHandler(
@@ -15,5 +14,4 @@ export const apiRoute = async (
       config,
       handler,
     );
-  return;
 };
