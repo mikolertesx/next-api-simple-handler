@@ -12,12 +12,3 @@ Welcome to Next Api Simple Handler's documentation!
 	about
 	first-steps
 	advanced-usage
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
