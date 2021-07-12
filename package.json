@@ -1,17 +1,26 @@
 {
 	"name": "next-api-simple-handler",
-	"version": "0.3.3",
+	"version": "0.3.4",
 	"description": "",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"files": [
 		"/dist"
 	],
+	"repository": {
+		"url": "https://github.com/mikolertesx/next-api-simple-handler",
+		"type": "git"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": [
+		"nextjs",
+		"react",
+		"express",
+		"api"
+	],
+	"author": "Miguel Angel Guerrero Salinas",
 	"license": "ISC",
 	"devDependencies": {
 		"typescript": "^4.3.5"

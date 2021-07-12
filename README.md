@@ -1,5 +1,7 @@
 # Next Api Simple Handler
 
+[Read The Docs (Documentation)](https://next-api-simple-handler.readthedocs.io/en/latest/)
+
 ## About
 
 The Next Api Simple handler is a minimal guard that allows you to automatize asking for missing values or missing keys.
@@ -205,6 +207,3 @@ The snippet above changes each of the errorMessages.
 
 The library was made with Typescript, so every piece here is typed and will give you hints on whether or not you are missusing it.
 
-## Todo
-- Add testing
-- Create documentation with Sphinx
