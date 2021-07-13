@@ -15,7 +15,7 @@ export const apiHandler = async (
         config.errorCodes?.["wrong-content-type"] ||
           defaultConfig.errorCodes["wrong-content-type"],
       ).json({
-        error: config.errorMessages?.["wrong-content-type"](
+        error: config.errorMessages?.["wrong-content-type"]?.(
           config.contentType,
           req.headers["content-type"],
         ) ||
@@ -39,7 +39,7 @@ export const apiHandler = async (
         config.errorCodes?.["wrong-method"] ||
           defaultConfig.errorCodes?.["wrong-method"],
       ).json({
-        error: config.errorMessages?.["wrong-method"](config.methods) ||
+        error: config.errorMessages?.["wrong-method"]?.(config.methods) ||
           defaultConfig.errorMessages?.["wrong-method"](config.methods),
       });
       return;
@@ -59,7 +59,7 @@ export const apiHandler = async (
         config.errorCodes?.["missing-body-key"] ||
           defaultConfig.errorCodes?.["missing-body-key"],
       ).json({
-        error: config.errorMessages?.["missing-body-key"](missingBodyKeys) ||
+        error: config.errorMessages?.["missing-body-key"]?.(missingBodyKeys) ||
           defaultConfig.errorMessages["missing-body-key"](missingBodyKeys),
       });
       return;

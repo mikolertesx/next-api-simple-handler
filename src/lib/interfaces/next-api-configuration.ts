@@ -13,9 +13,9 @@ type errorMessageFunctions = {
   "missing-body-key"?: (missingBodyKeys: string[]) => string;
 };
 
-type errorCodeMaps = { [failType in failTypes]: number };
+type errorCodeMaps = { [failType in failTypes]?: number };
 // type errorMessageMaps = { [failType in failTypes]: (...args: any) => string };
-interface NextApiConfiguration {
+export interface NextApiConfiguration {
   methods?: Methods[];
   requiredBody?: string[];
   contentType?: ContentType;
