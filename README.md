@@ -2,7 +2,8 @@
 
 ## Badges
 [![Build Status](https://www.travis-ci.com/mikolertesx/next-api-simple-handler.svg?branch=master)](https://www.travis-ci.com/mikolertesx/next-api-simple-handler)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/daf15091b4f546ca6e1e/maintainability)](https://codeclimate.com/github/mikolertesx/next-api-simple-handler/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/daf15091b4f546ca6e1e/test_coverage)](https://codeclimate.com/github/mikolertesx/next-api-simple-handler/test_coverage)
 
 [Read The Docs (Documentation)](https://next-api-simple-handler.readthedocs.io/en/latest/)
 
