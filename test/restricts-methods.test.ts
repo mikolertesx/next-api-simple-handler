@@ -1,7 +1,7 @@
 import { NextRequest } from "../src/lib/interfaces/next-request";
 import { createDummyRes } from "./util/dummyRes";
 import { NextApiConfiguration } from "../src/lib/interfaces/next-api-configuration";
-import { apiHandler } from "../src/";
+import { apiHandler } from "../src";
 
 test("Only get method allowed", async () => {
   const dummyReq: NextRequest = {
