@@ -1,5 +1,9 @@
 # Next Api Simple Handler
 
+## Badges
+[![Build Status](https://www.travis-ci.com/mikolertesx/next-api-simple-handler.svg?branch=master)](https://www.travis-ci.com/mikolertesx/next-api-simple-handler)
+
+
 [Read The Docs (Documentation)](https://next-api-simple-handler.readthedocs.io/en/latest/)
 
 ## About

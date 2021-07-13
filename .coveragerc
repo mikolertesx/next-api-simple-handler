@@ -1,0 +1,6 @@
+[report]
+omit =
+    */tests
+    */src/lib/interfaces
+		*/src/types
+show_missing = true
