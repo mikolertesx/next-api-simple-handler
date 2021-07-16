@@ -8,7 +8,7 @@ Preventing user from entering with wrong method.
 	import { apiHandler } from 'next-api-simple-handler'
 
 	export async function handler(req, res) => {
-		apiHandler(req, res, {
+		return apiHandler(req, res, {
 			methods: ['GET']
 		},
 		async (req, res) => {
@@ -33,7 +33,7 @@ Preventing user from sending wrong content type.
 	import { apiHandler } from 'next-api-simple-handler'
 
 	export async function handler(req, res) => {
-		apiHandler(req, res, {
+		return apiHandler(req, res, {
 			methods: ['POST'],
 			contentType: 'application/json'
 		},

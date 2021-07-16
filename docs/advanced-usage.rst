@@ -29,7 +29,7 @@ Let's say that, for example, we need to have a route that covers multiple differ
 	}
 
 	export async function handler(req, res) {
-		apiHandler(req, res, {methods: ['GET', 'POST']}, async () => {
+		return apiHandler(req, res, {methods: ['GET', 'POST']}, async () => {
 			if (req.method === 'GET') {
 				return handleGet(req, res);
 			}
@@ -72,7 +72,7 @@ And here is an example of what I'd do in a login, register situation.
 
 .. code-block:: js
 
-	apiHandler(
+	return apiHandler(
 			req,
 			res,
 			{
