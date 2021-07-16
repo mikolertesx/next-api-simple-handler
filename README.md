@@ -21,7 +21,7 @@ It's pretty simple in functionality, and allows you to shorten up the code you c
 import { apiHandler } from 'next-api-simple-handler'
 
 export async function handler(req, res) => {
-	apiHandler(req, res, {
+	return apiHandler(req, res, {
 		methods: ['GET']
 	},
 	async (req, res) => {
@@ -44,7 +44,7 @@ Available methods are:
 import { apiHandler } from 'next-api-simple-handler'
 
 export async function handler(req, res) => {
-	apiHandler(req, res, {
+	return apiHandler(req, res, {
 		methods: ['POST'],
 		contentType: 'application/json'
 	},
@@ -60,7 +60,7 @@ This snippet will prevent user from sending a request with a body that isn't mad
 import { apiHandler } from 'next-api-simple-handler'
 
 export async function handler(req, res) => {
-	apiHandler(req, res, {
+	return apiHandler(req, res, {
 		methods: ['POST'],
 		contentType: 'application/json'
 		requiredBody: ['username', 'password'],
@@ -84,7 +84,7 @@ const loginSchema = {
 }
 
 export default async function handler(req, res) {
-	apiHandler(
+	return apiHandler(
 			req,
 			res,
 			{
@@ -141,7 +141,7 @@ const handlePost = async(req, res) => {
 }
 
 export async function handler(req, res) {
-	apiHandler(req, res, {methods: ['GET', 'POST']}, async () => {
+	return apiHandler(req, res, {methods: ['GET', 'POST']}, async () => {
 		if (req.method === 'GET') {
 			return handleGet(req, res);
 		}
