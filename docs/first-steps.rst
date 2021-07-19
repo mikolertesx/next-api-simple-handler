@@ -5,16 +5,22 @@ Preventing user from entering with wrong method.
 -------------------------------------------------
 .. code-block:: js
 
-	import { apiHandler } from 'next-api-simple-handler'
+	import { apiHandler } from "next-api-simple-handler";
 
-	export async function handler(req, res) => {
-		return apiHandler(req, res, {
-			methods: ['GET']
-		},
-		async (req, res) => {
-			return res.status(200).json("Hello world!");
-		})
+	export async function handler(req, res) {
+		return apiHandler(
+			req,
+			res,
+			{
+				methods: ["GET"],
+			},
+			async (req, res) => {
+				return res.status(200).json("Hello world!");
+			}
+		);
 	}
+
+	export default handler
 
 The snippet above prevents user entering with any other method that isn't get.
 
@@ -30,17 +36,23 @@ Preventing user from sending wrong content type.
 
 .. code-block:: js
 
-	import { apiHandler } from 'next-api-simple-handler'
+	import { apiHandler } from "next-api-simple-handler";
 
-	export async function handler(req, res) => {
-		return apiHandler(req, res, {
-			methods: ['POST'],
-			contentType: 'application/json'
-		},
-		async (req, res) => {
-			return res.status(200).json("Hello world!");
-		})
+	export async function handler(req, res) {
+		return apiHandler(
+			req,
+			res,
+			{
+				methods: ["POST"],
+				contentType: "application/json",
+			},
+			async (req, res) => {
+				return res.status(200).json("Hello world!");
+			}
+		);
 	}
+
+	export default handler
 
 This snippet will prevent user from sending a request with a body that isn't made of "application/json".
 
@@ -49,18 +61,25 @@ Preventing user from sending unsufficient data.
 
 .. code-block:: js
 
-	import { apiHandler } from 'next-api-simple-handler'
+	import { apiHandler } from "next-api-simple-handler";
 
-	export async function handler(req, res) => {
-		apiHandler(req, res, {
-			methods: ['POST'],
-			contentType: 'application/json'
-			requiredBody: ['username', 'password'],
-		},
-		async (req, res) => {
-			return res.status(200).json("Hello world!");
-		})
+	export async function handler(req, res) {
+		return apiHandler(
+			req,
+			res,
+			{
+				methods: ["POST"],
+				contentType: "application/json",
+				requiredBody: ["username", "password"],
+			},
+			async (req, res) => {
+				return res.status(200).json({ message: "Hello world!" });
+			}
+		);
 	}
+
+	export default handler;
+
 
 The snippet above will make sure that req.body has a *username*, and a *password* key.
 
@@ -77,7 +96,7 @@ Telling the user what to send after failure.
 	}
 
 	export default async function handler(req, res) {
-		apiHandler(
+		return apiHandler(
 				req,
 				res,
 				{
