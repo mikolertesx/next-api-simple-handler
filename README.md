@@ -6,6 +6,7 @@
 [![codecov](https://codecov.io/gh/mikolertesx/next-api-simple-handler/branch/master/graph/badge.svg?token=MN2S1Z8X4H)](https://codecov.io/gh/mikolertesx/next-api-simple-handler)
 
 [Read The Docs (Documentation)](https://next-api-simple-handler.readthedocs.io/en/latest/)
+[NPM package](https://www.npmjs.com/package/next-api-simple-handler)
 
 ## About
 
