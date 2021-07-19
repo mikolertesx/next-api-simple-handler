@@ -18,16 +18,23 @@ It's pretty simple in functionality, and allows you to shorten up the code you c
 ### Preventing user from entering with wrong method.
 
 ```js
-import { apiHandler } from 'next-api-simple-handler'
+import { apiHandler } from "next-api-simple-handler";
 
-export async function handler(req, res) => {
-	return apiHandler(req, res, {
-		methods: ['GET']
-	},
-	async (req, res) => {
-		return res.status(200).json("Hello world!");
-	})
+export async function handler(req, res) {
+	return apiHandler(
+		req,
+		res,
+		{
+			methods: ["GET"],
+		},
+		async (req, res) => {
+			return res.status(200).json("Hello world!");
+		}
+	);
 }
+
+export default handler
+
 ```
 The snippet above prevents user entering with any other method that isn't get.
 
@@ -41,34 +48,48 @@ Available methods are:
 ### Preventing user from sending wrong content type.
 
 ```js
-import { apiHandler } from 'next-api-simple-handler'
+import { apiHandler } from "next-api-simple-handler";
 
-export async function handler(req, res) => {
-	return apiHandler(req, res, {
-		methods: ['POST'],
-		contentType: 'application/json'
-	},
-	async (req, res) => {
-		return res.status(200).json("Hello world!");
-	})
+export async function handler(req, res) {
+	return apiHandler(
+		req,
+		res,
+		{
+			methods: ["POST"],
+			contentType: "application/json",
+		},
+		async (req, res) => {
+			return res.status(200).json("Hello world!");
+		}
+	);
 }
+
+export default handler
+
 ```
 This snippet will prevent user from sending a request with a body that isn't made of "application/json".
 
 ### Preventing user from sending unsufficient data.
 ```js
-import { apiHandler } from 'next-api-simple-handler'
+import { apiHandler } from "next-api-simple-handler";
 
-export async function handler(req, res) => {
-	return apiHandler(req, res, {
-		methods: ['POST'],
-		contentType: 'application/json'
-		requiredBody: ['username', 'password'],
-	},
-	async (req, res) => {
-		return res.status(200).json("Hello world!");
-	})
+export async function handler(req, res) {
+	return apiHandler(
+		req,
+		res,
+		{
+			methods: ["POST"],
+			contentType: "application/json",
+			requiredBody: ["username", "password"],
+		},
+		async (req, res) => {
+			return res.status(200).json({ message: "Hello world!" });
+		}
+	);
 }
+
+export default handler;
+
 ```
 
 The snippet above will make sure that req.body has a *username*, and a *password* key.
@@ -101,6 +122,7 @@ export default async function handler(req, res) {
 			}
 	)
 }
+
 ```
 
 The snippet above, when the user does a request without a username, or without a password will tell the user that it was expecting this object.
@@ -148,6 +170,9 @@ export async function handler(req, res) {
 		return handlePost(req, res);
 	})
 }
+
+export default handler
+
 ```
 
 ### Customizable error message
@@ -181,29 +206,43 @@ const defaultConfig: apiConfiguration = {
 And here is an example of what I'd do in a login, register situation.
 
 ```js
-apiHandler(
-    req,
-    res,
-    {
-      methods: ['POST'],
-      contentType: 'application/json',
-      requiredBody: ['username', 'password'],
-      errorMessages: {
-        'missing-body-key': (missingKeys) =>
-          `A username, and a password are required to register an account. You are missing ${missingKeys.join(
-            ', '
-          )}`,
-        'wrong-content-type': (expectedContentType, receivedContentType) =>
-          `Only ${expectedContentType} is allowed on this route; You sent ${receivedContentType}`,
-        'wrong-method': (allowedMethods) =>
-          `Only the methods ${allowedMethods.join(
-            ', '
-          )} can be done in this route.`,
-      },
-      schema: registerSchema,
-    }, (req, res) => {
-			return res.json("User was registered.");
-		})
+import { apiHandler } from "next-api-simple-handler";
+
+const registerSchema = {
+	username: "[String] The name of the user you are trying to log into.",
+	password: "[String] The password.",
+};
+
+export async function handler(req, res) {
+	return apiHandler(
+		req,
+		res,
+		{
+			methods: ["POST"],
+			contentType: "application/json",
+			requiredBody: ["username", "password"],
+			errorMessages: {
+				"missing-body-key": (missingKeys) =>
+					`A username, and a password are required to register an account. You are missing ${missingKeys.join(
+						", "
+					)}`,
+				"wrong-content-type": (expectedContentType, receivedContentType) =>
+					`Only ${expectedContentType} is allowed on this route; You sent ${receivedContentType}`,
+				"wrong-method": (allowedMethods) =>
+					`Only the methods ${allowedMethods.join(
+						", "
+					)} can be done in this route.`,
+			},
+			schema: registerSchema,
+		},
+		(req, res) => {
+			return res.json({ message: "User was successfully registered" });
+		}
+	);
+}
+
+export default handler;
+
 ```
 
 The snippet above changes each of the errorMessages.
