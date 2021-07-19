@@ -1,5 +1,7 @@
 # Next Api Simple Handler
 
+[Demo](https://github.com/mikolertesx/next-api-handler-demo)
+
 ## Badges
 [![Build Status](https://www.travis-ci.com/mikolertesx/next-api-simple-handler.svg?branch=master)](https://www.travis-ci.com/mikolertesx/next-api-simple-handler)
 [![Maintainability](https://api.codeclimate.com/v1/badges/daf15091b4f546ca6e1e/maintainability)](https://codeclimate.com/github/mikolertesx/next-api-simple-handler/maintainability)
