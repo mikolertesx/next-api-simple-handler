@@ -61,6 +61,7 @@ export const apiHandler = async (
       ).json({
         error: config.errorMessages?.["missing-body-key"]?.(missingBodyKeys) ||
           defaultConfig.errorMessages["missing-body-key"](missingBodyKeys),
+        schema: config.schema || undefined,
       });
       return;
     }

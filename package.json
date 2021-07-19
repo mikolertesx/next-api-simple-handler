@@ -1,7 +1,7 @@
 {
 	"name": "next-api-simple-handler",
-	"version": "1.0.2",
-	"description": "",
+	"version": "1.0.3",
+	"description": "Next JS Api Simple Handler makes automatization of endpoints a lot easier!",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"files": [
